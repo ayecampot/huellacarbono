@@ -104,7 +104,7 @@ $(document).ready(function () {
     });
 
 })
-
+// Funciones realizadas para usarlas en la  navegación de los botones
 function animeForwardNavigation(navigation) {
     switch (navigation.activeIndex) {
         case 4:
@@ -127,7 +127,7 @@ function animeForwardNavigation(navigation) {
     }
 }
 
-// Funciones realizadas para usarlas en la  navegación de los botones
+
 function animeBackwardsNavigation(navigation) {
     switch (navigation.activeIndex) {
         case 3:
@@ -149,6 +149,7 @@ function animeBackwardsNavigation(navigation) {
     animeClickedIcon("prev-slide-arrow")
 }
 
+// Funciones realizadas para usarlas en nimeBackwardsNavigation y animeForwardNavigation
 function animeNewIcon(target) {
     anime({
         targets: "#" + target,
