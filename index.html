@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pre entrega</title>
+    <title>Tu huella de carbono</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
         integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
@@ -36,7 +36,7 @@
 
                             <form class="formularioCalculadora">
                                 <fieldset>
-                                    <div id="historial" class="mb-3 hide">
+                                    <div id="historial" class="mb-3 hidden">
                                         <label for="inputHistorial" class="form-label element">Si ingresaste
                                             anteriormente podés recuperar tus datos</label>
                                         <select id="inputHistorial" class="form-select element">
@@ -103,9 +103,9 @@
                                     tenés tu
                                     vivienda en invierno?</label>
                                 <select id="inputTemperatura" class="form-select element">
-                                    <option value="10">Menos de 17°</option>
-                                    <option value="20">Menos de 21° </option>
-                                    <option value="30">Más de 22°</option>
+                                    <option value="10">Entre 15° y 20°</option>
+                                    <option value="20">Entre 21° y 25° </option>
+                                    <option value="30">Más de 25°</option>
                                 </select>
                             </div>
                             <div class="mb-3">
@@ -165,9 +165,6 @@
                                     <option value="0">Ninguno</option>
                                 </select>
                             </div>
-                            <div class="element">
-                                <button type="button" class="btn btn-light next" id="calculo">Calcular</button>
-                            </div>
                             </fieldset>
                             </form>
                         </div>
@@ -180,20 +177,20 @@
                             <h6 class="element" id="tu-resultado">Tu huella de carbono es:</h6>
                             <h1 id="resultadoTexto" class="element"></h1>
                         </div>
-                        <div class="slide-right " >
-                            
-                        <img id="img-resultado">
-                        
-                        <img id="fondo-resultado" src="imagenes/resultado.jpg" alt="">
+                        <div class="slide-right ">
+
+                            <img id="img-resultado">
+
+                            <img id="fondo-resultado" src="imagenes/resultado.jpg" alt="">
                         </div>
                     </div>
-                    <div class="swiper-button-prev"><img src="imagenes/prev.png"></div>
-                    <div class="swiper-button-next next"><img src="imagenes/next.png"></div>
+                    <div id="prev-slide-arrow" class="swiper-button-hidden prev"><img src="imagenes/prev.png"></div>
+                    <div id="next-slide-arrow" class="swiper-button-next next"><img src="imagenes/next.png"></div>
+                    <div id="calculo" class="swiper-button-hidden next"><img src="imagenes/calculator.png"></div>
+                    <div id="reload" class="swiper-button-hidden"><img src="imagenes/reload.png"></div>
                 </div>
             </div>
         </div>
-
-
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
         <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>

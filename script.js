@@ -1,4 +1,4 @@
-function Persona(nombre, tamanio, bombillas, calefaccion, temperatura, aire, alimento, transporte, vuelos) {
+function Persona(nombre, tamanio, calefaccion, bombillas, temperatura, aire, alimento, transporte, vuelos) {
     this.nombre = nombre;
     this.tamanio = tamanio;
     this.bombillas = bombillas;
@@ -22,17 +22,27 @@ function changeResImg(src, texto) {
 function showResult(huellaCarbono) {
     if (huellaCarbono > 170) {
         changeResImg("imagenes/cactus.jpg", "MAYOR al promedio ¡A trabajar! ");
-    } else if (huellaCarbono == 170) {
-        changeResImg("imagenes/tortuga.jpg", "IGUAL al promedio ¡Nada mal!");
-    } else {
+    } else if (huellaCarbono <= 170 && huellaCarbono >= 150) {
         $.ajax({
             url: 'https://dog.ceo/api/breed/poodle/images/random',
             success: function (response) {
-                changeResImg(response.message, "MENOR al promedio ¡Felicitaciones!")
+                changeResImg(response.message, "IGUAL al promedio ¡Nada mal!" )
+            }
+        });
+     
+    } else {
+        $.ajax({
+            url: 'https://api.thecatapi.com/v1/images/search',
+            success: function (response) {
+                changeResImg(response[0].url, "MENOR al promedio ¡Felicitaciones!")
             }
         });
     }
 }
+
+
+
+
 
 function calcularHuella() {
     var nombre = $("#nombre").val();
@@ -44,7 +54,7 @@ function calcularHuella() {
     var alimento = parseInt($("#inputAlimento").val());
     var transporte = parseInt($("#inputTransporte").val());
     var vuelos = parseInt($("#inputVuelos").val());
-    var persona = new Persona(nombre, tamanio, calefaccion, bombillas, calefaccion, temperatura, aire, alimento, transporte, vuelos);
+    var persona = new Persona(nombre, tamanio, calefaccion, bombillas, temperatura, aire, alimento, transporte, vuelos);
 
     var huellaCarbono = persona.consumo();
 
@@ -54,12 +64,18 @@ function calcularHuella() {
     if (localStorage.getItem("histPersonas") !== null) {
         var storage = JSON.parse(localStorage.histPersonas);
         if (storage.length > 0) {
-            nuevoStorage = storage
+            nuevoStorage = eliminarPersonaRepetida(persona, storage);
         }
     }
 
     nuevoStorage.push(persona)
     localStorage.histPersonas = JSON.stringify(nuevoStorage);
+}
+
+function eliminarPersonaRepetida(nuevaPersona, storage) {
+    return storage.filter(function (personaGuardada) {
+        return personaGuardada.nombre !== nuevaPersona.nombre
+    })
 }
 
 function completarHistorial() {
@@ -75,7 +91,7 @@ function completarHistorial() {
     $("#nombre")[0].value = persona.nombre;
     $("#inputVivienda")[0].value = persona.tamanio;
     $("#inputBombillas")[0].value = persona.bombillas;
-    $("#inputCalefaccion")[0].value = persona.bombillas;
+    $("#inputCalefaccion")[0].value = persona.calefaccion;
     $("#inputTemperatura")[0].value = persona.temperatura;
     $("#inputAire")[0].value = persona.aire;
     $("#inputAlimento")[0].value = persona.alimento;
@@ -85,11 +101,14 @@ function completarHistorial() {
 
 
 $("#calculo").click(calcularHuella);
+$("#reload").click(function () {
+    location.reload()
+})
 
 if (localStorage.getItem("histPersonas") !== null) {
     var storage = JSON.parse(localStorage.histPersonas);
     if (storage.length > 0) {
-        $("#historial")[0].className = "mb-3 show"
+        $("#historial").toggle()
 
         var historialSelect = $("#inputHistorial");
         storage.forEach(element => {
@@ -98,6 +117,6 @@ if (localStorage.getItem("histPersonas") !== null) {
             historialSelect[0].appendChild(option)
         });
         historialSelect.change(completarHistorial);
+        completarHistorial();
     }
 }
-

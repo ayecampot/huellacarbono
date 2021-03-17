@@ -129,6 +129,14 @@ header ul li a {
     display: none;
 }
 
+.hidden {
+    display: none;
+}
+
+.show {
+    display: block;
+}
+
 #tu-resultado {
     font-size: 25px;
     font-weight: 700;

@@ -5,7 +5,7 @@ $(document).ready(function () {
 
         navigation: {
             nextEl: '.next',
-            prevEl: '.swiper-button-prev',
+            prevEl: '.prev',
         },
     })
 
@@ -25,6 +25,15 @@ $(document).ready(function () {
             }),
             easing: 'easeInOutQuart'
         });
+    })
+
+
+    mySwipper.on('slideNextTransitionStart', function () {
+        animeForwardNavigation(this);
+    })
+
+    mySwipper.on('slidePrevTransitionStart', function () {
+        animeBackwardsNavigation(this);
     })
 
     anime({
@@ -91,3 +100,71 @@ $(document).ready(function () {
     });
 
 })
+
+function animeForwardNavigation(navigation) {
+    switch (navigation.activeIndex) {
+        case 4:
+            animeNewIcon("reload")
+            toggleRightIcon("reload")
+            toggleRightIcon("calculo");
+            break;
+        case 3:
+            animeNewIcon("calculo")
+            toggleRightIcon("next-slide-arrow");
+            toggleRightIcon("calculo");
+            break;
+        case 1:
+            animeClickedIcon("next-slide-arrow")
+            animeNewIcon("prev-slide-arrow")
+            toggleLeftIcon("prev-slide-arrow")
+            break;
+        default:
+            animeClickedIcon("next-slide-arrow")
+    }
+}
+
+function animeBackwardsNavigation(navigation) {
+    switch (navigation.activeIndex) {
+        case 3:
+            animeNewIcon("calculo")
+            toggleRightIcon("calculo")
+            toggleRightIcon("reload")
+            break;
+        case 2:
+            animeNewIcon("next-slide-arrow")
+            toggleRightIcon("next-slide-arrow")
+            toggleRightIcon("calculo")
+            break;
+        case 0:
+            toggleLeftIcon("prev-slide-arrow")
+            break;
+        default:
+            break;
+    }
+    animeClickedIcon("prev-slide-arrow")
+}
+
+function animeNewIcon(target) {
+    anime({
+        targets: "#" + target,
+        scale: [1.2, 1],
+        opacity: [0.5, 1],
+        easing: 'easeInOutQuart'
+    });
+}
+
+function animeClickedIcon(target) {
+    anime({
+        targets: "#" + target,
+        opacity: [0.5, 1],
+        easing: 'easeInOutQuart'
+    });
+}
+
+function toggleRightIcon(target) {
+    $("#" + target).toggleClass('swiper-button-hidden swiper-button-next');
+}
+
+function toggleLeftIcon(target) {
+    $("#" + target).toggleClass('swiper-button-hidden swiper-button-prev');
+}
