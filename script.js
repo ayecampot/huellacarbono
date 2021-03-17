@@ -83,6 +83,15 @@ function eliminarPersonaRepetida(nuevaPersona, storage) {
     })
 }
 
+function tieneElementos(storage) {
+    if (storage.length > 0) {
+        return storage.filter(function (personaGuardada) {
+            return personaGuardada.nombre !== ""
+        }).length > 0
+    }
+    return false
+}
+
 function completarHistorial() {
     var option = $("#inputHistorial").val();
     var storage = JSON.parse(localStorage.histPersonas);
@@ -112,7 +121,7 @@ $("#reload").click(function () {
 
 if (localStorage.getItem("histPersonas") !== null) {
     var storage = JSON.parse(localStorage.histPersonas);
-    if (storage.length > 0) {
+    if (tieneElementos(storage)) {
         $("#historial").toggle()
 
         var historialSelect = $("#inputHistorial");
