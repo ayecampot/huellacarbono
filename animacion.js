@@ -1,3 +1,5 @@
+// Navegación de botones
+
 $(document).ready(function () {
     var mySwipper = new Swiper('.swiper-container', {
         effect: "fade",
@@ -35,6 +37,8 @@ $(document).ready(function () {
     mySwipper.on('slidePrevTransitionStart', function () {
         animeBackwardsNavigation(this);
     })
+
+    // Animaciones al cargar la página
 
     anime({
         targets: 'header',
@@ -123,6 +127,7 @@ function animeForwardNavigation(navigation) {
     }
 }
 
+// Funciones realizadas para usarlas en la  navegación de los botones
 function animeBackwardsNavigation(navigation) {
     switch (navigation.activeIndex) {
         case 3:

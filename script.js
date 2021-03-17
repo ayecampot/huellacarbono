@@ -1,3 +1,4 @@
+// Objeto persona
 function Persona(nombre, tamanio, calefaccion, bombillas, temperatura, aire, alimento, transporte, vuelos) {
     this.nombre = nombre;
     this.tamanio = tamanio;
@@ -15,21 +16,28 @@ function Persona(nombre, tamanio, calefaccion, bombillas, temperatura, aire, ali
 }
 
 function changeResImg(src, texto) {
-    $('#img-resultado').attr("src", src);
+    if (src != "") {
+        $('#resultadoImagen').attr("src", src);
+        $("#resultadoImagen").show()
+        $("#resultadoVideo").hide()
+    } else {
+        $("#resultadoVideo").show()
+        $("#resultadoImagen").hide()
+    }
     $("#resultadoTexto").text(texto);
 }
 
 function showResult(huellaCarbono) {
     if (huellaCarbono > 170) {
-        changeResImg("imagenes/cactus.jpg", "MAYOR al promedio ¡A trabajar! ");
+        changeResImg("", "MAYOR al promedio ¡A trabajar! ");
     } else if (huellaCarbono <= 170 && huellaCarbono >= 150) {
         $.ajax({
             url: 'https://dog.ceo/api/breed/poodle/images/random',
             success: function (response) {
-                changeResImg(response.message, "IGUAL al promedio ¡Nada mal!" )
+                changeResImg(response.message, "IGUAL al promedio ¡Nada Mal!")
             }
         });
-     
+
     } else {
         $.ajax({
             url: 'https://api.thecatapi.com/v1/images/search',
@@ -40,10 +48,7 @@ function showResult(huellaCarbono) {
     }
 }
 
-
-
-
-
+// función para calcular huella y LocalStorage
 function calcularHuella() {
     var nombre = $("#nombre").val();
     var tamanio = parseInt($("#inputVivienda").val());
@@ -99,7 +104,7 @@ function completarHistorial() {
     $("#inputVuelos")[0].value = persona.vuelos;
 }
 
-
+// Eventos de los botones
 $("#calculo").click(calcularHuella);
 $("#reload").click(function () {
     location.reload()

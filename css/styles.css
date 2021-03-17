@@ -144,10 +144,6 @@ header ul li a {
     margin-top: 50px;
 }
 
-#img-resultado {
-    max-height: 300px;
-}
-
 .img-container {
     text-align: center;
     display: block;
@@ -159,7 +155,12 @@ position:absolute;
 z-index: -1;
 }
 
-#img-resultado {
+.resultadoMultimedia {
+    max-height: 300px;
+}
+
+.resultadoMultimedia  {
+    display: none;
     position: absolute;
     z-index: 1;
     max-width: 300px;
